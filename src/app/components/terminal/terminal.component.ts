@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TerminalOrchestratorService } from 'src/app/services/terminal-orchestrator.service';
 
 @Component({
   selector: 'cmd-terminal',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./terminal.component.scss']
 })
 export class TerminalComponent {
+
+  constructor(private terminalOrchestrator: TerminalOrchestratorService) {
+
+  }
+
 
 }
