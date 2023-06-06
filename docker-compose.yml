@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    greenfall:
+        image: greenfall
+        volumes:
+            - ./src:/ng-workspace/src
+        build:
+            context: .
+            dockerfile: dockerfile
+        ports:
+            - "4200:4200"
+            - "49153:49153"
