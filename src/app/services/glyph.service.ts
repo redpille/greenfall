@@ -5,5 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class GlyphService {
 
+  private static readonly CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%^&*()-=_+,.<>;:'\"?\\|{}[]~ ";
+
+
   constructor() { }
+
+  // randomly return a character from CHARSET
+  draw(): String {
+    return GlyphService.CHARSET[Math.floor(Math.random() * GlyphService.CHARSET.length)];
+  }
 }
