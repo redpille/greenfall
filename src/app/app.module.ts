@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TerminalComponent } from './components/terminal/terminal.component';
 import { TerminalBufferComponent } from './components/terminal-buffer/terminal-buffer.component';
+import { CommandComponent } from './components/command/command.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TerminalComponent,
-    TerminalBufferComponent
+    TerminalBufferComponent,
+    CommandComponent
   ],
   imports: [
     BrowserModule,
