@@ -11,7 +11,7 @@ export class GlyphService {
   constructor() { }
 
   // randomly return a character from CHARSET
-  draw(): String {
+  draw(): string {
     return GlyphService.CHARSET[Math.floor(Math.random() * GlyphService.CHARSET.length)];
   }
 }
