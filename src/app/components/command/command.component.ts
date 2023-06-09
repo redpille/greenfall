@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GlyphService } from 'src/app/services/glyph.service';
 import { CommandContext } from 'src/app/shared/models/command-context.model';
 
@@ -12,36 +12,44 @@ export class CommandComponent {
   // how far the commmand has descended
   private lineNumber: number = 0;
   // the actual textual command 
-  private payload: string = '';
+  private _payload: string = '';
   // when currentTick equals tickRate, this command descend
-  private currentTick: number = 0;
+  private _currentTick: number = 0;
 
-  private cmdContext!: CommandContext;
+  // context of this CommandComponent
+  @Input()
+  context!: CommandContext;
+
 
   constructor(
-    commandContext: CommandContext,
     private glyphService: GlyphService
   ) {
-    this.cmdContext = commandContext;
+
   }
 
   update(): void {
-    this.currentTick = ++this.currentTick % this.cmdContext.tickRate;
+    this._currentTick = ++this._currentTick % this.context.tickRate;
 
-    if (this.currentTick == 0) {
+    if (this._currentTick == 0) {
       this.descend();
     }
 
-    if (Math.random() > this.cmdContext.mutationRate) {
+    if (Math.random() > this.context.mutationRate) {
       this.mutate();
     }
   }
 
   descend() {
-    this.payload = this.payload + this.glyphService.draw();
+    this.lineNumber++;
+    this._payload = this._payload + this.glyphService.draw();
   }
 
   mutate() {
 
   }
+
+  get printable(): string {
+    return this._payload.substring(Math.max(this.lineNumber - this.context.length, 0));
+  }
+
 }
