@@ -10,7 +10,7 @@ export class TerminalPropertiesService {
   constructor() { }
 
   setTypesetting(w: number, h: number): void {
-    this._typesetting = { width: w, height: h };
+    this._typesetting = { width: Math.ceil(w), height: Math.ceil(h) };
   }
 
   get typesetting() {
