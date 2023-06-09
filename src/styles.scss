@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "Matrix Code NFI";
+    src: url("/assets/font/matrix code nfi.otf") format("opentype"),
+        url("/assets/font/matrix code nfi.ttf") format("truetype");
+}
 
 html,
 body {
@@ -7,6 +12,6 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: "Matrix Code NFI", "Courier New", Courier, monospace;
     overflow: hidden;
 }
