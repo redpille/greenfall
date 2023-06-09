@@ -4,6 +4,7 @@ import { TerminalBufferComponent } from '../terminal-buffer/terminal-buffer.comp
 import { Subscription } from 'rxjs';
 import { CommandContext } from 'src/app/shared/models/command-context.model';
 import { CommandComponent } from '../command/command.component';
+import { TerminalPropertiesService } from 'src/app/services/terminal-properties.service';
 
 @Component({
   selector: 'cmd-terminal',
@@ -11,9 +12,6 @@ import { CommandComponent } from '../command/command.component';
   styleUrls: ['./terminal.component.scss']
 })
 export class TerminalComponent implements OnInit, AfterViewInit {
-
-  @ViewChild('testblock', { static: true })
-  private _testblock!: ElementRef;
 
   @ViewChildren(TerminalBufferComponent)
   private _buffers!: QueryList<TerminalBufferComponent>;
@@ -25,6 +23,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
 
   constructor(
     private terminalOrchestrator: TerminalOrchestratorService,
+    private terminalProperties: TerminalPropertiesService,
     private cd: ChangeDetectorRef
   ) {
 
@@ -59,6 +58,6 @@ export class TerminalComponent implements OnInit, AfterViewInit {
   }
 
   get bufferSize(): number {
-    return Math.ceil(this._screenWidth / this._testblock.nativeElement.getBoundingClientRect().width);
+    return Math.ceil(this._screenWidth / this.terminalProperties.typesetting.width);
   }
 }
