@@ -43,4 +43,8 @@ export class TerminalPropertiesService {
     return Math.ceil(this._windowSize.width / this._typesetting.width);
   }
 
+  get rows(): number {
+    return Math.ceil(this._windowSize.height / this._typesetting.height);
+  }
+
 }
