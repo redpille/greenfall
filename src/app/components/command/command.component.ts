@@ -60,4 +60,8 @@ export class CommandComponent {
     return y;
   }
 
+  get isObsolete(): boolean {
+    return this.lineNumber > this.terminalProperties.rows + this.context.length;
+  }
+
 }

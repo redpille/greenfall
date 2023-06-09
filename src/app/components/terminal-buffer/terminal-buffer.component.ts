@@ -15,15 +15,27 @@ export class TerminalBufferComponent {
   private _commandContainer!: ViewContainerRef;
 
   receiveCommand(cmdContext: CommandContext): void {
+
     const componentRef: ComponentRef<CommandComponent> = this._commandContainer.createComponent(CommandComponent);
     componentRef.instance.context = cmdContext;
     this._commands.push(componentRef);
   }
 
   update(): void {
-    this._commands.forEach((cmdRef) => {
+
+    for (var i = 0; i < this._commands.length; i++) {
+      let cmdRef = this._commands[i];
       cmdRef.instance.update();
-    });
+
+      // if command is out of screen
+      if (cmdRef.instance.isObsolete) {
+        // remove from reference
+        this._commands.splice(this._commands.indexOf(cmdRef), 1);
+        // delete from view
+        cmdRef.destroy();
+      }
+
+    }
   }
 
 }
