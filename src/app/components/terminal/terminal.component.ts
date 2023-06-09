@@ -2,6 +2,8 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, 
 import { TerminalOrchestratorService } from 'src/app/services/terminal-orchestrator.service';
 import { TerminalBufferComponent } from '../terminal-buffer/terminal-buffer.component';
 import { Subscription } from 'rxjs';
+import { CommandContext } from 'src/app/shared/models/command-context.model';
+import { CommandComponent } from '../command/command.component';
 
 @Component({
   selector: 'cmd-terminal',
@@ -17,6 +19,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
   private _buffers!: QueryList<TerminalBufferComponent>;
 
   private _screenWidth: number = 0;
+
   private _elapseSubscription!: Subscription;
 
 
@@ -32,6 +35,8 @@ export class TerminalComponent implements OnInit, AfterViewInit {
       this._buffers.forEach((buff, index) => {
         buff.update();
       });
+      this.injectCommand();
+
     });
   }
 
@@ -39,6 +44,13 @@ export class TerminalComponent implements OnInit, AfterViewInit {
     this.updateScreenWidth();
     // trigger change detector to avoid ExpressionChangedAfterItHasBeenCheckedError
     this.cd.detectChanges();
+  }
+
+  // inject a command to a terminal buffer
+  injectCommand(): void {
+    var index = Math.floor(Math.random() * this._buffers.length);
+    var cmd: CommandContext = CommandContext.generate();
+    this._buffers.get(index)!.receiveCommand(cmd);
   }
 
   @HostListener('window:resize', ['$event'])
