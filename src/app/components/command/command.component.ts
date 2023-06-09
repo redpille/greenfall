@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { GlyphService } from 'src/app/services/glyph.service';
+import { TerminalPropertiesService } from 'src/app/services/terminal-properties.service';
 import { CommandContext } from 'src/app/shared/models/command-context.model';
 
 @Component({
@@ -22,7 +23,8 @@ export class CommandComponent {
 
 
   constructor(
-    private glyphService: GlyphService
+    private glyphService: GlyphService,
+    private terminalProperties: TerminalPropertiesService
   ) {
 
   }
@@ -50,6 +52,12 @@ export class CommandComponent {
 
   get printable(): string {
     return this._payload.substring(Math.max(this.lineNumber - this.context.length, 0));
+  }
+
+  @HostBinding('style.top.px')
+  get offsetY(): number {
+    let y = this.terminalProperties.typesetting.height * (Math.max(this.lineNumber - this.context.length, 0));
+    return y;
   }
 
 }
