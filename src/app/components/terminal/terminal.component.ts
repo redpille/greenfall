@@ -11,12 +11,10 @@ import { TerminalPropertiesService } from 'src/app/services/terminal-properties.
   templateUrl: './terminal.component.html',
   styleUrls: ['./terminal.component.scss']
 })
-export class TerminalComponent implements OnInit, AfterViewInit {
+export class TerminalComponent implements OnInit {
 
   @ViewChildren(TerminalBufferComponent)
   private _buffers!: QueryList<TerminalBufferComponent>;
-
-  private _screenWidth: number = 0;
 
   private _elapseSubscription!: Subscription;
 
@@ -39,12 +37,6 @@ export class TerminalComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.updateScreenWidth();
-    // trigger change detector to avoid ExpressionChangedAfterItHasBeenCheckedError
-    this.cd.detectChanges();
-  }
-
   // inject a command to a terminal buffer
   injectCommand(): void {
     var index = Math.floor(Math.random() * this._buffers.length);
@@ -52,12 +44,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
     this._buffers.get(index)!.receiveCommand(cmd);
   }
 
-  @HostListener('window:resize', ['$event'])
-  updateScreenWidth() {
-    this._screenWidth = window.innerWidth;
-  }
-
   get bufferSize(): number {
-    return Math.ceil(this._screenWidth / this.terminalProperties.typesetting.width);
+    return this.terminalProperties.columns;
   }
 }
