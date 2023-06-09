@@ -5,5 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class TerminalPropertiesService {
 
+  private _typesetting = { width: 16, height: 16 };
+
   constructor() { }
+
+  setTypesetting(w: number, h: number): void {
+    this._typesetting = { width: w, height: h };
+  }
+
+  get typesetting() {
+    return Object.freeze(this._typesetting);
+  }
+
 }
