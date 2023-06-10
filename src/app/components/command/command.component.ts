@@ -13,7 +13,7 @@ export class CommandComponent {
   // how far the commmand has descended
   private lineNumber: number = 0;
   // the actual textual command 
-  private _payload: string = '';
+  private _payload: string[] = [];
   // when currentTick equals tickRate, this command descend
   private _currentTick: number = 0;
 
@@ -43,15 +43,15 @@ export class CommandComponent {
 
   descend() {
     this.lineNumber++;
-    this._payload = this._payload + this.glyphService.draw();
+    this._payload.push(this.glyphService.draw());
   }
 
   mutate() {
 
   }
 
-  get printable(): string {
-    return this._payload.substring(Math.max(this.lineNumber - this.context.length, 0));
+  get printable(): string[] {
+    return this._payload.slice(Math.max(this.lineNumber - this.context.length, 0));
   }
 
   @HostBinding('style.top.px')
