@@ -19,7 +19,7 @@ export class CommandContext {
         var header = Math.ceil(Math.random() * 2);
         var length = Math.floor(Math.random() * 20) + 4;
         var tickRate = Math.pow(2, Math.ceil(Math.random() * 4));
-        var mutationRate = 0;
+        var mutationRate = 0.05;
         return new CommandContext(header, length, tickRate, mutationRate);
     }
 }

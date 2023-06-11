@@ -36,7 +36,7 @@ export class CommandComponent {
       this.descend();
     }
 
-    if (Math.random() > this.context.mutationRate) {
+    if (Math.random() < this.context.mutationRate) {
       this.mutate();
     }
   }
@@ -47,7 +47,7 @@ export class CommandComponent {
   }
 
   mutate() {
-
+    this._payload[Math.floor(Math.random() * this._payload.length)] = this.glyphService.draw();
   }
 
   overwrite(): void {
