@@ -11,7 +11,7 @@ import { CommandContext } from 'src/app/shared/models/command-context.model';
 export class CommandComponent {
 
   // how far the commmand has descended
-  private lineNumber: number = 0;
+  private _lineNumber: number = 0;
   // the actual textual command 
   private _payload: string[] = [];
   // when currentTick equals tickRate, this command descend
@@ -42,7 +42,7 @@ export class CommandComponent {
   }
 
   descend() {
-    this.lineNumber++;
+    this._lineNumber++;
     this._payload.push(this.glyphService.draw());
   }
 
@@ -50,18 +50,26 @@ export class CommandComponent {
 
   }
 
+  overwrite(): void {
+    this.context.length--;
+  }
+
   get printable(): string[] {
-    return this._payload.slice(Math.max(this.lineNumber - this.context.length, 0));
+    return this._payload.slice(Math.max(this._lineNumber - this.context.length, 0));
   }
 
   @HostBinding('style.top.px')
   get offsetY(): number {
-    let y = this.terminalProperties.typesetting.height * (Math.max(this.lineNumber - this.context.length, 0));
+    let y = this.terminalProperties.typesetting.height * (Math.max(this._lineNumber - this.context.length, 0));
     return y;
   }
 
   get isObsolete(): boolean {
-    return this.lineNumber > this.terminalProperties.rows + this.context.length;
+    return this._lineNumber > this.terminalProperties.rows + this.context.length;
+  }
+
+  get lineNumber(): number {
+    return this._lineNumber;
   }
 
 }
