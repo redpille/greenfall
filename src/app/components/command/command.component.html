@@ -1,1 +1,4 @@
-<div *ngFor="let p of printable" class="command__text">{{p}}</div>
+<div *ngFor="let p of printable; index as i" class="command__text"
+    [class.command__header]="i >= (printable.length - context.header)">
+    {{p}}
+</div>
