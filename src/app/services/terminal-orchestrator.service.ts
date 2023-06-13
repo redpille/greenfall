@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, interval } from 'rxjs';
+import { Message } from '../shared/enum/message';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class TerminalOrchestratorService {
 
   private _elapse$: Observable<number>;
 
-  private _elapseSubject = new Subject<string>();
+  private _elapseSubject = new Subject<Message>();
 
 
   constructor() {
@@ -21,12 +22,13 @@ export class TerminalOrchestratorService {
 
   public launch(): void {
     this._elapse$.subscribe(() => {
-      console.log('tick');
-      this._elapseSubject.next('');
+      this._elapseSubject.next(Message.TICK);
+      this._elapseSubject.next(Message.INJECT);
+
     });
   }
 
-  elapse(): Observable<string> {
+  elapse(): Observable<Message> {
     return this._elapseSubject.asObservable();
   }
 

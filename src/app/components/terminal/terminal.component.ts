@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { CommandContext } from 'src/app/shared/models/command-context.model';
 import { CommandComponent } from '../command/command.component';
 import { TerminalPropertiesService } from 'src/app/services/terminal-properties.service';
+import { Message } from 'src/app/shared/enum/message';
 
 @Component({
   selector: 'cmd-terminal',
@@ -29,11 +30,13 @@ export class TerminalComponent implements OnInit {
 
   ngOnInit(): void {
     this._elapseSubscription = this.terminalOrchestrator.elapse().subscribe((message) => {
-      this._buffers.forEach((buff, index) => {
-        buff.update();
-      });
-      this.injectCommand();
-
+      if (message === Message.TICK) {
+        this._buffers.forEach((buff, index) => {
+          buff.update();
+        });
+      } else if (message === Message.INJECT) {
+        this.injectCommand();
+      }
     });
   }
 
