@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, interval } from 'rxjs';
 import { Message } from '../shared/enum/message';
+import { Intent } from '../shared/interfaces/intent';
+import { CommandContext } from '../shared/models/command-context.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class TerminalOrchestratorService {
 
   private _elapse$: Observable<number>;
 
-  private _elapseSubject = new Subject<Message>();
+  private _elapseSubject = new Subject<Intent>();
 
 
   constructor() {
@@ -24,23 +26,26 @@ export class TerminalOrchestratorService {
     // wait 3 second for the first single command
     await this.delay(3000);
 
-    this._elapseSubject.next(Message.INJECT);
+    this._elapseSubject.next({
+      type: Message.INJECT,
+      data: new CommandContext(1, 24, 2, 0)
+    });
     var opening = this._elapse$.subscribe(() => {
-      this._elapseSubject.next(Message.TICK);
+      this._elapseSubject.next({ type: Message.TICK });
     });
 
-    // wait 1.5 second for the rest of the command
-    await this.delay(1500);
+    // wait 1 second for the rest of the command
+    await this.delay(1000);
     opening.unsubscribe();
 
     this._elapse$.subscribe(() => {
-      this._elapseSubject.next(Message.TICK);
-      this._elapseSubject.next(Message.INJECT);
+      this._elapseSubject.next({ type: Message.TICK });
+      this._elapseSubject.next({ type: Message.INJECT });
 
     });
   }
 
-  elapse(): Observable<Message> {
+  elapse(): Observable<Intent> {
     return this._elapseSubject.asObservable();
   }
 

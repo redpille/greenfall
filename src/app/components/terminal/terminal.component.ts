@@ -28,13 +28,13 @@ export class TerminalComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this._elapseSubscription = this.terminalOrchestrator.elapse().subscribe((message) => {
-      if (message === Message.TICK) {
+    this._elapseSubscription = this.terminalOrchestrator.elapse().subscribe((intent) => {
+      if (intent.type === Message.TICK) {
         this._buffers.forEach((buff, index) => {
           buff.update();
         });
-      } else if (message === Message.INJECT) {
-        this.injectCommand();
+      } else if (intent.type === Message.INJECT) {
+        this.injectCommand(intent.data);
       }
     });
 
@@ -43,10 +43,12 @@ export class TerminalComponent implements AfterViewInit {
   }
 
   // inject a command to a terminal buffer
-  injectCommand(): void {
+  injectCommand(context?: CommandContext): void {
+    context = context ?? CommandContext.generate();
+
     var index = Math.floor(Math.random() * this._buffers.length);
-    var cmd: CommandContext = CommandContext.generate();
-    this._buffers.get(index)!.receiveCommand(cmd);
+
+    this._buffers.get(index)!.receiveCommand(context);
   }
 
   get bufferSize(): number {
