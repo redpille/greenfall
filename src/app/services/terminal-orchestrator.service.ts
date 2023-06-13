@@ -7,7 +7,7 @@ import { Observable, Subject, interval } from 'rxjs';
 export class TerminalOrchestratorService {
 
   // each tick in millisecond
-  public static readonly TICK: number = 100;
+  public static readonly TICK: number = 33;
 
   private _elapse$: Observable<number>;
 
