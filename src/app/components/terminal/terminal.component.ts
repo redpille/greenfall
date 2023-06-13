@@ -1,9 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/core';
 import { TerminalOrchestratorService } from 'src/app/services/terminal-orchestrator.service';
 import { TerminalBufferComponent } from '../terminal-buffer/terminal-buffer.component';
 import { Subscription } from 'rxjs';
 import { CommandContext } from 'src/app/shared/models/command-context.model';
-import { CommandComponent } from '../command/command.component';
 import { TerminalPropertiesService } from 'src/app/services/terminal-properties.service';
 import { Message } from 'src/app/shared/enum/message';
 
@@ -12,7 +11,7 @@ import { Message } from 'src/app/shared/enum/message';
   templateUrl: './terminal.component.html',
   styleUrls: ['./terminal.component.scss']
 })
-export class TerminalComponent implements OnInit {
+export class TerminalComponent implements AfterViewInit {
 
   @ViewChildren(TerminalBufferComponent)
   private _buffers!: QueryList<TerminalBufferComponent>;
@@ -28,7 +27,7 @@ export class TerminalComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this._elapseSubscription = this.terminalOrchestrator.elapse().subscribe((message) => {
       if (message === Message.TICK) {
         this._buffers.forEach((buff, index) => {
@@ -38,6 +37,9 @@ export class TerminalComponent implements OnInit {
         this.injectCommand();
       }
     });
+
+    this.terminalOrchestrator.launch();
+    this.cd.detectChanges();
   }
 
   // inject a command to a terminal buffer
