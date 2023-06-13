@@ -3,6 +3,9 @@ import { GlyphService } from 'src/app/services/glyph.service';
 import { TerminalPropertiesService } from 'src/app/services/terminal-properties.service';
 import { CommandContext } from 'src/app/shared/models/command-context.model';
 
+import * as chroma from "chroma-js";
+
+
 @Component({
   selector: 'cmd-command',
   templateUrl: './command.component.html',
@@ -21,6 +24,7 @@ export class CommandComponent {
   @Input()
   context!: CommandContext;
 
+  private _chromaScale = chroma.scale(['#101F11', '#3ABF57', '#9DFFA6']).domain([0, 0.6, 1]);
 
   constructor(
     private glyphService: GlyphService,
@@ -72,4 +76,11 @@ export class CommandComponent {
     return this._lineNumber;
   }
 
+  fontColor(i: number): string {
+    return this._chromaScale((i + 1) / this.context.length).hex();
+  }
+
+  shadowColor(i: number): string {
+    return chroma(this.fontColor(i)).darken().hex();
+  }
 }
