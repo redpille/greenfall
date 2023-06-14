@@ -3,14 +3,12 @@ import { Observable, Subject, interval } from 'rxjs';
 import { Message } from '../shared/enum/message';
 import { Intent } from '../shared/interfaces/intent';
 import { CommandContext } from '../shared/models/command-context.model';
+import { TerminalPropertiesService } from './terminal-properties.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TerminalOrchestratorService {
-
-  // each tick in millisecond
-  public static readonly TICK: number = 33;
 
   private _elapse$: Observable<number>;
 
@@ -18,7 +16,7 @@ export class TerminalOrchestratorService {
 
 
   constructor() {
-    this._elapse$ = interval(TerminalOrchestratorService.TICK);
+    this._elapse$ = interval(TerminalPropertiesService.TICK);
   }
 
   public async launch(): Promise<void> {

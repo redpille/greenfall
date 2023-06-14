@@ -7,6 +7,8 @@ export class TerminalPropertiesService {
 
   private _typesetting = { width: 16, height: 16 };
   private _windowSize: { width: number; height: number } = { width: 0, height: 0 };
+  // each tick in millisecond
+  public static readonly TICK: number = 33;
 
 
   constructor(private rendererFactory2: RendererFactory2) {
