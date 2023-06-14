@@ -80,7 +80,7 @@ export class CommandComponent {
   }
 
   fontColor(i: number): string {
-    return this._chromaScale((i + 1) / this.context.length).hex();
+    return this._chromaScale((i + 1) / this.printable.length).hex();
   }
 
   shadowColor(i: number): string {
