@@ -58,14 +58,17 @@ export class CommandComponent {
     this.context.length--;
   }
 
+  get offsetLine(): number {
+    return Math.max(this._lineNumber - this.context.length, 0);
+  }
+
   get printable(): string[] {
-    return this._payload.slice(Math.max(this._lineNumber - this.context.length, 0));
+    return this._payload.slice(this.offsetLine);
   }
 
   @HostBinding('style.top.px')
   get offsetY(): number {
-    let y = this.terminalProperties.typesetting.height * (Math.max(this._lineNumber - this.context.length, 0));
-    return y;
+    return this.terminalProperties.typesetting.height * this.offsetLine;
   }
 
   get isObsolete(): boolean {
