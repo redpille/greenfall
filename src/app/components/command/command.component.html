@@ -1,5 +1,4 @@
 <div *ngFor="let p of printable; index as i" class="command__text"
-    [class.command__header]="i >= (printable.length - context.header)" [style.color]="fontColor(i)"
-    [style.text-shadow]="'0 0 8px '+ shadowColor(i)">
+    [class.command__header]="i >= (printable.length - context.header)">
     {{p}}
 </div>

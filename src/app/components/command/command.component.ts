@@ -24,8 +24,6 @@ export class CommandComponent {
   @Input()
   context!: CommandContext;
 
-  private _chromaScale = chroma.scale(['#101F11', '#3ABF57', '#9DFFA6']).domain([0, 0.6, 1]);
-
   constructor(
     private glyphService: GlyphService,
     private terminalProperties: TerminalPropertiesService
@@ -79,11 +77,4 @@ export class CommandComponent {
     return this._lineNumber;
   }
 
-  fontColor(i: number): string {
-    return this._chromaScale((i + 1) / this.printable.length).hex();
-  }
-
-  shadowColor(i: number): string {
-    return chroma(this.fontColor(i)).darken().hex();
-  }
 }
