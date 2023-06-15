@@ -17,9 +17,23 @@ export class CommandContext {
 
     public static generate(): CommandContext {
         var header = Math.ceil(Math.random() * 2);
-        var length = Math.floor(Math.random() * 20) + 4;
-        var tickRate = Math.pow(2, Math.ceil(Math.random() * 4));
-        var mutationRate = 0.1;
+        var length = Math.floor(Math.random() * 12) + 4;
+        var tickRate = this.weightedRandom([1, 2, 3], [1, 3, 6]);
+        var mutationRate = 0.3;
         return new CommandContext(header, length, tickRate, mutationRate);
+    }
+
+    private static weightedRandom(value: number[], weight: number[]): number {
+        var totalWeight = weight.reduce((prev, curr) => prev + curr, 0);
+        var rand = Math.floor(Math.random() * totalWeight);
+
+        var accuWeight = 0;
+        for (var i = 0; i < value.length; i++) {
+            accuWeight += weight[i];
+            if (accuWeight > rand) {
+                return value[i];
+            }
+        }
+        return value[value.length - 1];
     }
 }
