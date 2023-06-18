@@ -16,9 +16,9 @@ export class CommandContext {
     }
 
     public static generate(): CommandContext {
-        var header = Math.ceil(Math.random() * 2);
-        var length = Math.floor(Math.random() * 12) + 4;
-        var tickRate = this.weightedRandom([1, 2, 3], [1, 3, 6]);
+        var header = Math.floor(Math.random() * 3);
+        var length = Math.floor(Math.random() * 16) + 4;
+        var tickRate = this.weightedRandom([1, 2, 4], [0.5, 1.5, 8]);
         var mutationRate = 0.3;
         return new CommandContext(header, length, tickRate, mutationRate);
     }
