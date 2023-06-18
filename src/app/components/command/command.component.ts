@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { GlyphService } from 'src/app/services/glyph.service';
 import { TerminalPropertiesService } from 'src/app/services/terminal-properties.service';
 import { CommandContext } from 'src/app/shared/models/command-context.model';
@@ -11,7 +11,7 @@ import * as chroma from "chroma-js";
   templateUrl: './command.component.html',
   styleUrls: ['./command.component.scss']
 })
-export class CommandComponent {
+export class CommandComponent implements OnInit {
 
   // how far the commmand has descended
   private _lineNumber: number = 0;
@@ -29,6 +29,12 @@ export class CommandComponent {
     private terminalProperties: TerminalPropertiesService
   ) {
 
+  }
+  ngOnInit(): void {
+    // initialize payload
+    for (var i = 0; i < this.context.length; i++) {
+      this._payload.push(this.glyphService.draw());
+    }
   }
 
   update(): void {
@@ -57,11 +63,11 @@ export class CommandComponent {
   }
 
   get offsetLine(): number {
-    return Math.max(this._lineNumber - this.context.length, 0);
+    return this._lineNumber - this.context.length;
   }
 
   get printable(): string[] {
-    return this._payload.slice(this.offsetLine);
+    return this._payload.slice(this._payload.length - this.context.length);
   }
 
   @HostBinding('style.top.px')
