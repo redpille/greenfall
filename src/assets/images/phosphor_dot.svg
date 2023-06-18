@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="108" height="44" viewBox="0 0 28.575 11.641666" version="1.1" id="svg13753" xml:space="preserve" sodipodi:docname="phosphor_dot.svg" inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview id="namedview13755" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="px" showgrid="false" inkscape:zoom="5.6568542" inkscape:cx="38.802485" inkscape:cy="25.721009" inkscape:window-width="1280" inkscape:window-height="738" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="layer1"/><defs id="defs13750"><filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter4741" x="-0.10928675" y="-0.034187149" width="1.2185735" height="1.0683743"><feGaussianBlur inkscape:collect="always" stdDeviation="0.15448806" id="feGaussianBlur4743"/></filter><filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter4741-8" x="-0.10928675" y="-0.034187149" width="1.2185735" height="1.0683743"><feGaussianBlur inkscape:collect="always" stdDeviation="0.15448806" id="feGaussianBlur4743-6"/></filter><filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter4741-4" x="-0.10928675" y="-0.034187149" width="1.2185735" height="1.0683743"><feGaussianBlur inkscape:collect="always" stdDeviation="0.15448806" id="feGaussianBlur4743-7"/></filter></defs><g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" inkscape:tile-cx="7.1437499" inkscape:tile-cy="5.8208334" inkscape:tile-w="14.2875" inkscape:tile-h="11.641667" inkscape:tile-x0="0" inkscape:tile-y0="0"><rect style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.289072;stroke-dasharray:none;opacity:1" id="rect18223" x="0" y="0" ry="0" height="11.641666" width="14.287499"/><rect style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;filter:url(#filter4741);opacity:1" id="rect3629-6" width="3.3926513" height="10.845357" x="1.9744123" y="0.47274932" ry="1.5298902" transform="matrix(0.93647375,0,0,0.93647375,-0.8262341,0.29991955)" inkscape:label="rect3629-r"/><rect style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;filter:url(#filter4741-8);opacity:1" id="rect3629-6-0" width="3.3926513" height="10.845357" x="1.9744123" y="0.47274932" ry="1.5298902" transform="matrix(0.93647374,0,0,0.93647374,3.8029159,0.29991961)" inkscape:label="rect3629-g"/><rect style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;filter:url(#filter4741-4);opacity:1" id="rect3629-6-2" width="3.3926513" height="10.845357" x="1.9744123" y="0.47274932" ry="1.5298902" transform="matrix(0.93647374,0,0,0.93647374,8.4455596,0.29991961)" inkscape:label="rect3629-b"/></g><use x="0" y="0" inkscape:tiled-clone-of="#layer1" xlink:href="#layer1" id="use19141"/><use x="0" y="0" inkscape:tiled-clone-of="#layer1" xlink:href="#layer1" transform="translate(14.2875,5.8208334)" id="use19147"/><use x="0" y="0" inkscape:tiled-clone-of="#layer1" xlink:href="#layer1" transform="translate(14.2875,-5.8208332)" id="use19147-0"/><!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</svg>
