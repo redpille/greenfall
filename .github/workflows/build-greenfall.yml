@@ -1,0 +1,50 @@
+name: build-greenfall
+env:
+  TOKEN_COMMIT: ${{ secrets.GREENFALL_TOKEN }}
+  USER_NAME: mrbrique
+  USER_EMAIL: ${{ secrets.USER_EMAIL }}
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    branches: [main]
+jobs:
+  ng-build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout greenfall
+        uses: actions/checkout@v2
+
+      - name: Setup node 19
+        uses: actions/setup-node@v2
+        with:
+          node-version: '19'
+
+      - name: Install npm package
+        run: npm install
+
+      - name: Install @angular/cli
+        run: npm install -g @angular/cli
+
+      - name: Build angular app
+        run: ng build
+
+      - name: duplicate 404.html from index.html
+        run: |
+          cd ./dist/greenfall
+          cp index.html 404.html
+
+      - name: Commit to redpille.github.io
+        run: |
+          cd ./dist/greenfall
+          git init -b main
+          git config --local user.name $USER_NAME
+          git config --local user.email $USER_EMAIL
+          echo local Git repository config completed
+          git status
+          git remote add origin https://$TOKEN_COMMIT@github.com/redpille/redpille.github.io.git
+          git checkout -b main
+          git add --all
+          git commit -m "Deploy to Github pages by build-greenfall"
+          git push origin main -f
