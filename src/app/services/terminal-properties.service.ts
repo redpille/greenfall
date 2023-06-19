@@ -9,6 +9,10 @@ export class TerminalPropertiesService {
   private _windowSize: { width: number; height: number } = { width: 0, height: 0 };
   // each tick in millisecond
   public static readonly TICK: number = 33;
+  public static readonly BLINK: number = 500;
+
+  public static readonly TITLE_FULL_BLOCK = '█';
+  public static readonly TITLE_BLANK = '__';
 
 
   constructor(private rendererFactory2: RendererFactory2) {

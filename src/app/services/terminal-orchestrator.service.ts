@@ -4,6 +4,7 @@ import { Message } from '../shared/enum/message';
 import { Intent } from '../shared/interfaces/intent';
 import { CommandContext } from '../shared/models/command-context.model';
 import { TerminalPropertiesService } from './terminal-properties.service';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,16 @@ import { TerminalPropertiesService } from './terminal-properties.service';
 export class TerminalOrchestratorService {
 
   private _elapse$: Observable<number>;
+  private _blink$: Observable<number>;
 
   private _elapseSubject = new Subject<Intent>();
 
+  title = TerminalPropertiesService.TITLE_FULL_BLOCK;
 
-  constructor() {
+  constructor(private titleService: Title) {
     this._elapse$ = interval(TerminalPropertiesService.TICK);
+    this._blink$ = interval(TerminalPropertiesService.BLINK);
+
   }
 
   public async launch(): Promise<void> {
@@ -41,6 +46,11 @@ export class TerminalOrchestratorService {
       this._elapseSubject.next({ type: Message.INJECT });
       this._elapseSubject.next({ type: Message.INJECT_SERIAL });
 
+    });
+
+    this._blink$.subscribe(() => {
+      this.title = (this.title === TerminalPropertiesService.TITLE_BLANK) ? TerminalPropertiesService.TITLE_FULL_BLOCK : TerminalPropertiesService.TITLE_BLANK;
+      this.titleService.setTitle(this.title);
     });
   }
 
