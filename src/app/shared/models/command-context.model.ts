@@ -19,7 +19,7 @@ export class CommandContext {
         var header = Math.floor(Math.random() * 3);
         var length = this.weightedRandom([4, 8, 12, 16, 20], [1, 5, 7, 7, 1]);
 
-        var tickRate = this.weightedRandom([1, 2, 4, 8], [0.1, 1.9, 4, 4]);
+        var tickRate = this.weightedRandom([1, 2, 4, 8], [0.1, 2, 4, 2]);
         var mutationRate = 0.3;
         return new CommandContext(header, length, tickRate, mutationRate);
     }
