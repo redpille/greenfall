@@ -18,6 +18,9 @@ export class TerminalComponent implements AfterViewInit {
 
   private _elapseSubscription!: Subscription;
 
+  private _nextBuffer = 0;
+  private _nextForward = true;
+
 
   constructor(
     private terminalOrchestrator: TerminalOrchestratorService,
@@ -28,6 +31,9 @@ export class TerminalComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // initialize next buffer to receive INJECT_SERIAL 
+    this._nextBuffer = Math.floor(Math.random() * this.bufferSize);
+    // subscribe main loop
     this._elapseSubscription = this.terminalOrchestrator.elapse().subscribe((intent) => {
       if (intent.type === Message.TICK) {
         this._buffers.forEach((buff, index) => {
@@ -35,6 +41,13 @@ export class TerminalComponent implements AfterViewInit {
         });
       } else if (intent.type === Message.INJECT) {
         this.injectCommand(intent.data);
+      } else if (intent.type === Message.INJECT_SERIAL) {
+        (this._nextForward) ? this._nextBuffer++ : this._nextBuffer--;
+        this._nextBuffer = (this._nextBuffer < 0) ? this._nextBuffer + this.bufferSize : this._nextBuffer;
+        this._nextBuffer = this._nextBuffer % this.bufferSize;
+        this.injectCommand(undefined, this._nextBuffer);
+        // 20% chance to flip direction
+        this._nextForward = (Math.random() < 0.2) ? !this._nextForward : this._nextForward;
       }
     });
 
@@ -43,10 +56,10 @@ export class TerminalComponent implements AfterViewInit {
   }
 
   // inject a command to a terminal buffer
-  injectCommand(context?: CommandContext): void {
+  injectCommand(context?: CommandContext, index?: number): void {
     context = context ?? CommandContext.generate();
 
-    var index = Math.floor(Math.random() * this._buffers.length);
+    index = index ?? Math.floor(Math.random() * this._buffers.length);
 
     this._buffers.get(index)!.receiveCommand(context);
   }

@@ -39,6 +39,7 @@ export class TerminalOrchestratorService {
     this._elapse$.subscribe(() => {
       this._elapseSubject.next({ type: Message.TICK });
       this._elapseSubject.next({ type: Message.INJECT });
+      this._elapseSubject.next({ type: Message.INJECT_SERIAL });
 
     });
   }

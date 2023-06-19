@@ -1,4 +1,5 @@
 export enum Message {
     TICK,
-    INJECT
+    INJECT,
+    INJECT_SERIAL
 }
